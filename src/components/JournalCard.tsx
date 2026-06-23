@@ -10,6 +10,7 @@ interface Props {
     openLock: (journal: Journal) => void;
     openUnlock: (journal: Journal) => void;
     openRename: (journal: Journal) => void;
+    openJournal:(journal:Journal)=>void;
 }
 
 export default function JournalCard(
@@ -19,11 +20,12 @@ export default function JournalCard(
         favoriteJournal,
         openRename,
         openLock,
-        openUnlock
+        openUnlock,
+        openJournal
     }: Props) {
 
     return (
-        <div className="card">
+        <div className="card" onClick={()=>openJournal(journal)}>
             {
                 journal.locked ?
                     <Lock size={20} />
@@ -37,24 +39,24 @@ export default function JournalCard(
                 </>
             </div>
             <div className="bottom">
-                <Heart onClick={() => favoriteJournal(journal.id)} size={21} fill={journal.favorite ? "white" : "none"} />
-                <Pencil size={20} onClick={() => openRename(journal)} style={{ cursor: "pointer" }} />
-                <Trash size={20} onClick={() => deleteJournal(journal.id)} style={{ cursor: "pointer" }} />
+                <Heart onClick={(e)=>{e.stopPropagation(); favoriteJournal(journal.id)}} size={21} fill={journal.favorite ? "white" : "none"} />
+                <Pencil size={20} onClick={(e)=>{ e.stopPropagation(); openRename(journal)}} style={{ cursor: "pointer" }} />
+                <Trash size={20} onClick={(e)=>{e.stopPropagation(); deleteJournal(journal.id)}} style={{ cursor: "pointer" }} />
                 {
                     journal.locked ?
                         <Lock
                             size={20}
-                            onClick={() =>
+                            onClick={(e)=>{e.stopPropagation();
                                 openUnlock(journal)
-                            }
+                            }}
                             style={{ cursor: "pointer" }}
                         />
                         :
                         <Unlock
                             size={20}
-                            onClick={() =>
+                            onClick={(e)=>{ e.stopPropagation();
                                 openLock(journal)
-                            }
+                            }}
                             style={{ cursor: "pointer" }}
                         />
                 }

@@ -9,6 +9,8 @@ import RenameJournalModal from "./components/RenameJournalModal";
 import LockJournalModal from "./components/LockJournalModal";
 import UnlockJournalModal from "./components/UnlockJournalModal";
 import Toast from "./components/Toast";
+import BookPage from "./components/BookPage";
+import OpenBookModal from "./components/OpenBookModal";
 import {
     getJournals,
     saveJournals
@@ -27,8 +29,8 @@ function App() {
     const [renameBook, setRenameBook] = useState<Journal | null>(null);
     const [lockBook, setLockBook] = useState<Journal | null>(null);
     const [unlockBook, setUnlockBook] = useState<Journal | null>(null);
-
-
+    const [openedJournal, setOpenedJournal] = useState<Journal | null>(null);
+    const [openBook, setOpenBook] = useState<Journal | null>(null);
     function createJournal(
         title: string,
         subtitle: string
@@ -50,6 +52,20 @@ function App() {
         saveJournals(updated);
     }
 
+    function openJournal(journal: Journal) {
+        if (journal.locked) {
+            setOpenBook(journal);
+        }
+        else {
+            setOpenedJournal(journal);
+        }
+    }
+
+    function confirmOpenBook() {
+        if (!openBook) return;
+        setOpenedJournal(openBook);
+        setOpenBook(null);
+    }
 
     function showMessage(text: string) {
         setMessage(text);
@@ -68,6 +84,7 @@ function App() {
     function applyUnlock() {
         if (!unlockBook) return;
         unlockJournal(unlockBook.id);
+        setUnlockBook(null);
     }
 
     function deleteJournal(id: string) {
@@ -121,7 +138,16 @@ function App() {
     }
 
     const filteredJournals = journals.filter((j) => j.title.toLowerCase().includes(search.toLowerCase()) || j.subtitle.toLowerCase().includes(search.toLowerCase()));
+    if (openedJournal) {
+        return (
+            <BookPage
+                journal={openedJournal}
+                back={() => setOpenedJournal(null)}
+            />
+        )
+    }
     return (
+
         <div className="app">
             <Header />
             <SearchBar
@@ -140,6 +166,7 @@ function App() {
                             (journal) => (
                                 <JournalCard
                                     journal={journal}
+                                    openJournal={openJournal}
                                     key={journal.id}
                                     deleteJournal={deleteJournal}
                                     favoriteJournal={favoriteJournal}
@@ -170,6 +197,8 @@ function App() {
                 unlockBook &&
                 <UnlockJournalModal password={unlockBook.password!}
                     close={() => setUnlockBook(null)} unlock={applyUnlock} showMessage={showMessage} />
+            }
+            {openBook && <OpenBookModal password={openBook.password!} close={() => setOpenBook(null)} open={confirmOpenBook} showMessage={showMessage} />
             }
             <Toast message={message} show={showToast} />
         </div>

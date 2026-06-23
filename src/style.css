@@ -17,8 +17,17 @@ body {
   );
 }
 
+.empty {
+  padding: 30px;
+  font-size: 36px;
+  width: 460%;
+  margin-top: 120px;
+  padding-bottom: 180px;
+  text-align: center;
+}
+
 .app {
-  padding: 3% 8%;
+  padding: 3% 6%;
 }
 
 .books {
@@ -37,6 +46,13 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-shadow:
+    inset 4px 0 10px rgba(0, 0, 0, 0.15),
+    0 1px 2px rgba(0, 0, 0, 0.1),
+    2px 4px 10px rgba(0, 0, 0, 0.15),
+    6px 12px 20px rgba(0, 0, 0, 0.1),
+    -1px 0 0 rgba(255, 255, 255, 0.2) inset;
+  border: 1px solid white;
 }
 
 .middle {
@@ -128,7 +144,6 @@ body {
   outline: none;
   background: transparent;
   width: 100%;
-  font-family: inherit;
   font-size: 28px;
   font-weight: 600;
 }
@@ -164,7 +179,7 @@ body {
 }
 
 .modal {
-  width: 600px;
+  width: 620px;
   background: linear-gradient(
     to bottom,
     #75794b 0%,
@@ -174,7 +189,7 @@ body {
   );
   border: 2px solid #131313;
   border-radius: 25px;
-  padding: 40px;
+  padding: 35px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -186,7 +201,7 @@ body {
   margin-top: 15px;
   text-align: center;
   font-size: 45px;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 .modal input {
@@ -270,4 +285,85 @@ body {
 .eye {
   margin: 0px 15px;
   cursor: pointer;
+}
+
+
+/* Bookpage */
+
+.book-page {
+  height: 100vh;
+  background: #8b9560;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.library-btn {
+  position: absolute;
+  top: 30px;
+  left: 40px;
+   background: linear-gradient(#131313, #131313, #131313, #131313, #3d101d);
+  color: white;
+  border: none;
+  border-radius: 35px;
+  padding: 8px 30px;
+  display: flex;
+  gap: 15px;
+  font-size: 23px;
+  align-items: center;
+}
+
+.cover {
+  margin-left: 620px;
+  margin-top: 60px;
+  width: 610px;
+  height: 700px;
+  background: linear-gradient(180deg, #131313, #131313,#131313,#131313,#131313, #3b1017);
+  border-radius: 10px 35px 35px 10px;
+  border: 1px solid white;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.cover h1 {
+  font-size: 82px;
+  font-weight: 400;
+}
+
+.cover h3 {
+  font-size: 38px;
+  font-weight: 599;
+  margin-bottom: 80px;
+}
+
+.cover span {
+  position: absolute;
+  bottom: 10px;
+  right: 30px;
+  font-size: 30px;
+}
+
+.page-nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-top:25px;
+}
+
+.page-nav p
+{
+   font-size: 32px;
+}
+.page-nav button {
+  border: none;
+  background: #131313;
+  color: white;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
 }
