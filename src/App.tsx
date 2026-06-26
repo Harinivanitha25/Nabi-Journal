@@ -9,8 +9,8 @@ import RenameJournalModal from "./components/RenameJournalModal";
 import LockJournalModal from "./components/LockJournalModal";
 import UnlockJournalModal from "./components/UnlockJournalModal";
 import Toast from "./components/Toast";
-import BookPage from "./components/BookPage";
 import OpenBookModal from "./components/OpenBookModal";
+import OpenBookPage from "./components/OpenBookPage";
 import {
     getJournals,
     saveJournals
@@ -31,6 +31,7 @@ function App() {
     const [unlockBook, setUnlockBook] = useState<Journal | null>(null);
     const [openedJournal, setOpenedJournal] = useState<Journal | null>(null);
     const [openBook, setOpenBook] = useState<Journal | null>(null);
+    const [openBookPage, setOpenBookPage] = useState(false);
     function createJournal(
         title: string,
         subtitle: string
@@ -138,13 +139,26 @@ function App() {
     }
 
     const filteredJournals = journals.filter((j) => j.title.toLowerCase().includes(search.toLowerCase()) || j.subtitle.toLowerCase().includes(search.toLowerCase()));
+    if (openedJournal && openBookPage) {
+        return (
+            <OpenBookPage
+                journal={openedJournal}
+                back={() => {
+                    setOpenBookPage(false);
+                    setOpenedJournal(null);
+                }}
+            />)
+    }
+
     if (openedJournal) {
         return (
-            <BookPage
+            <OpenBookPage
                 journal={openedJournal}
                 back={() => setOpenedJournal(null)}
             />
+
         )
+
     }
     return (
 

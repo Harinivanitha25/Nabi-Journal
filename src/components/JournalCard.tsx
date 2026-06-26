@@ -39,7 +39,7 @@ export default function JournalCard(
                 </>
             </div>
             <div className="bottom">
-                <Heart onClick={(e)=>{e.stopPropagation(); favoriteJournal(journal.id)}} size={21} fill={journal.favorite ? "white" : "none"} />
+                <Heart onClick={(e)=>{e.stopPropagation(); favoriteJournal(journal.id)}} size={21} fill={journal.favorite ? "white" : "none"} style={{ cursor: "pointer" }}  />
                 <Pencil size={20} onClick={(e)=>{ e.stopPropagation(); openRename(journal)}} style={{ cursor: "pointer" }} />
                 <Trash size={20} onClick={(e)=>{e.stopPropagation(); deleteJournal(journal.id)}} style={{ cursor: "pointer" }} />
                 {
